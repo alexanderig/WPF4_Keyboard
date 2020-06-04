@@ -1,0 +1,1907 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Keyboard">
+
+    <Style x:Key="Animation" TargetType="{x:Type Button}">
+        <Setter Property="IsEnabled" Value="{Binding isEnabledAllKeys}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="Arial Narrow"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">            
+            <Setter.Value>
+                <RotateTransform></RotateTransform>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Button.IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Name="rotateStoryboardBegin">
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle"
+                 From="0" To="360" Duration="0:0:0.4"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3" AutoReverse="True"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Slider}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding isEnabledAllKeys}" Value="True">
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type CheckBox}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding isEnabledAllKeys}" Value="True">
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Redbut" BasedOn="{StaticResource Animation}" TargetType="{x:Type Button}">
+        <Setter Property="Template">            
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="Border" BorderThickness="1" CornerRadius="6" BorderBrush="Black" Background="#FFF07795" Padding="5" Margin="1" Width="30">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontWeight="Bold"></ContentPresenter>
+                            
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />                            
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>                        
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Yellowbut" BasedOn="{StaticResource Animation}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border" BorderThickness="1" CornerRadius="6" Background="#FFE6F077" BorderBrush="Black" Padding="2" Margin="1" Width="30">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontWeight="Bold"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Greenbut" BasedOn="{StaticResource Animation}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border" BorderThickness="1" CornerRadius="6" Background="#FF7FF077" BorderBrush="Black" Padding="5" Margin="1" Width="30">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontWeight="Bold"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="GreenWidebut" BasedOn="{StaticResource Animation}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border" BorderThickness="1" CornerRadius="6" Background="#FF7FF077" BorderBrush="Black" Padding="5" Margin="1" Width="45">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontWeight="Bold"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="Bluebut" BasedOn="{StaticResource Animation}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border" BorderThickness="1" CornerRadius="6" Background="#FF77BEF0" BorderBrush="Black" Padding="5" Margin="1" Width="30">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontWeight="Bold"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="Purplebut" BasedOn="{StaticResource Animation}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border" BorderThickness="1" CornerRadius="6" Background="#FFDB77F0" BorderBrush="Black" Padding="5" Margin="1" Width="30">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontWeight="Bold"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="TabStyle"  TargetType="{x:Type Button}">
+        <Setter Property="IsEnabled" Value="{Binding isEnabledAllKeys}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="Border" BorderThickness="1" CornerRadius="6" BorderBrush="Black" Background="LightGray" Padding="5" Margin="1" Width="45">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="Capsstyle" TargetType="{x:Type Button}">
+        <Setter Property="IsEnabled" Value="{Binding isEnabledAllKeys}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="Border" BorderThickness="1" CornerRadius="6" BorderBrush="Black" Background="LightGray" Padding="5" Margin="1" Width="60">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Lime"/>
+                        </Trigger>
+                        <Trigger Property="Button.Background" Value="DarkGray">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Lime"/>
+                        </Trigger>
+                        <Trigger Property="Button.Background" Value="LightGray">
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EnterStyle" TargetType="{x:Type Button}">
+        <Setter Property="IsEnabled" Value="{Binding isEnabledAllKeys}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="Border" BorderThickness="1" CornerRadius="6" BorderBrush="Black" Background="LightGray" Padding="5" Margin="1" Width="60">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />                            
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="ShiftStyle" TargetType="{x:Type Button}">
+        <Setter Property="IsEnabled" Value="{Binding isEnabledAllKeys}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="10"/>       
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="Border" BorderThickness="1" CornerRadius="6" BorderBrush="Black" Background="LightGray" Padding="5" Margin="1" Width="75">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                            <Setter Property="Background" Value="DarkGray"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SpaceStyle" TargetType="{x:Type Button}">
+        <Setter Property="IsEnabled" Value="{Binding isEnabledAllKeys}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="Border" BorderThickness="1" CornerRadius="10" BorderBrush="Black" Background="#FFE5BB72" Padding="5" Margin="1" Width="180">
+                        <Grid>
+                            <Rectangle Name="FocusCue" Visibility="Hidden" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"></Rectangle>
+                            <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGoldenRod" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Buto3" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="`"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="~"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="~"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="~"/>
+            </DataTrigger>            
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="`"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="`"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="But1" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="1"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="!"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="!"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="!"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="1"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="1"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="But2" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="2"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="@"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="@"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="@"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="2"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="2"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+        
+    </Style>
+
+    <Style x:Key="But3" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="3"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="#"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="#"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="#"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="3"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="3"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="But4" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="4"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="$"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="$"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="$"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="4"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="4"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="But5" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="5"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="%"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="%"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="%"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="5"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="5"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="But6" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="6"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="^"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="^"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="^"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="6"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="6"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="But7" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="7"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="&amp;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="&amp;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="&amp;"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="7"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="7"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="But8" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="8"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="*"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="*"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="*"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="8"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="8"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="But9" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="9"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="("/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="("/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="("/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="9"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="9"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="But0" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value=")"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value=")"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value=")"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+        
+    </Style>
+    
+    <Style x:Key="Butmin" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="-"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="_"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="_"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="_"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="-"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="-"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buteq" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="="/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="+"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="+"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="+"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="="/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="="/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butq" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="q"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="Q"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="Q"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="Q"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="q"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="q"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butw" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="w"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="W"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="W"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="W"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="w"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="w"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Bute" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="e"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="E"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="E"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="E"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="e"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="e"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butr" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="r"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="R"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="R"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="R"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="r"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="r"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butt" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="t"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="T"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="T"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="T"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="t"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="t"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buty" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="y"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="Y"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="Y"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="Y"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="y"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="y"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butu" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="u"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="U"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="U"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="U"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="u"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="u"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buti" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="i"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="I"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="I"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="I"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="i"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="i"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buto" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="o"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="O"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="O"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="O"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="o"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="o"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butp" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="p"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="P"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="P"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="P"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="p"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="p"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buto4" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="["/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="&#10100;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="&#10100;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="&#10100;"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="["/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="["/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buto6" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="]"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="&#10101;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="&#10101;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="&#10101;"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="]"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="]"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Buto5" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="\"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="|"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="|"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="|"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="\"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="\"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Buta" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="a"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="A"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="A"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="A"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="a"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="a"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Buts" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="s"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="S"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="S"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="S"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="s"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="s"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Butd" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="d"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="D"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="D"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="D"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="d"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="d"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Butf" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="f"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="F"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="F"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="F"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="f"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="f"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Butg" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="g"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="G"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="G"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="G"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="g"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="g"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buth" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="h"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="H"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="H"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="H"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="h"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="h"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butj" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="j"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="J"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="J"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="J"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="j"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="j"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butk" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="k"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="K"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="K"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="K"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="k"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="k"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butl" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="l"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="L"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="L"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="L"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="l"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="l"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buto1" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value=";"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value=":"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value=":"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value=":"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value=";"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value=";"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buto7" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="'"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="&quot;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="&quot;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="&quot;"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="'"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="'"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butz" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value="z"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="Z"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="Z"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="Z"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="z"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="z"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butx" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="x"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="X"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="X"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="X"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="x"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="x"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butc" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="c"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="C"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="C"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="C"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="c"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="c"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butv" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="v"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="V"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="V"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="V"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="v"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="v"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butb" TargetType="{x:Type Button}" BasedOn="{StaticResource Bluebut}">
+        <Setter Property="Button.Content" Value="b"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="B"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="B"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="B"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="b"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="b"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butn" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="n"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="N"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="N"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="N"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="n"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="n"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butm" TargetType="{x:Type Button}" BasedOn="{StaticResource Purplebut}">
+        <Setter Property="Button.Content" Value="m"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="M"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="M"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="M"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="m"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="m"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butoc" TargetType="{x:Type Button}" BasedOn="{StaticResource Redbut}">
+        <Setter Property="Button.Content" Value=","/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="&lt;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="&lt;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="&lt;"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value=","/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value=","/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Butop" TargetType="{x:Type Button}" BasedOn="{StaticResource Yellowbut}">
+        <Setter Property="Button.Content" Value="."/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="&gt;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="&gt;"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="&gt;"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="."/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="."/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="Buto2" TargetType="{x:Type Button}" BasedOn="{StaticResource Greenbut}">
+        <Setter Property="Button.Content" Value="/"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True">
+                <Setter Property="Button.Content" Value="?"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPressed, ElementName=RightShift}" Value="True">
+                <Setter Property="Button.Content" Value="?"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Background, ElementName=Capital}" Value="DarkGray">
+                <Setter Property="Button.Content" Value="?"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=LeftShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="/"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, ElementName=RightShift}" Value="True"/>
+                    <Condition Binding="{Binding Background, ElementName=Capital}" Value="DarkGray"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Button.Content" Value="/"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>
